@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity implements SensorEventListener {
 
-	private final long SEND_RATE = 10;
+	private final long SEND_RATE = 20;
 	private UdpClient mClient;
 	
 	private float[] mOrientation;
@@ -32,10 +32,10 @@ public class MainActivity extends Activity implements SensorEventListener {
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_FASTEST);
 		mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_FASTEST);
-		mOrientation = new float[3];
+		mOrientation = new float[4];
 		
 		try {
-			String ipAddress = "192.168.213.1";
+			String ipAddress = "192.168.174.1";
 			int port = 11000;
 			mClient = new UdpClient(ipAddress, port);
 			mClient.start();
@@ -68,6 +68,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 		};
 		
 		isRunning = true;
+		
 		handler.postDelayed(sendStateRunnable, 0);
 	}
 
@@ -118,7 +119,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 		}
 		
 		SensorManager.getRotationMatrix(rotationMatrix, inclinaison, mGravity, mMagneticField);
-		SensorManager.getOrientation(rotationMatrix, mOrientation);
+		OrientationCommand.convertMatrixToQuaternion(mOrientation, rotationMatrix);
 	}
 	
 	/**

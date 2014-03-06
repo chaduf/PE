@@ -5,48 +5,54 @@ using System.IO;
 using System;
 using SimpleJSON;
 
-public class Server : MonoBehaviour {
-	public int port;
+public class Server : CommandHandler {
+//	public int port;
+//	protected UdpServer server;
 
-	UdpServer server;
-	Thread serverThread;
+//	Thread serverThread;
 
 	// Use this for initialization
-	void Start () {
-		server = new UdpServer (port);
-		server.Setup ();
+//	void Start () {
+//		server = new UdpServer (port);
+//		server.Setup ();
 
-		serverThread = new Thread (new ThreadStart(connect));
-		serverThread.Start ();
-	}
+//		serverThread = new Thread (new ThreadStart(connect));
+//		serverThread.Start ();
+//	}
 
-	private void connect() {
-		server.ClientConnect();
-	}
+//	private void connect() {
+//		server.ClientConnect();
+//	}
 
 	// Update is called once per frame
-	void Update () {
+//	void Update () {
+//	}
+
+//	void OnDestroy(){
+//		server.Close ();
+//	}
+
+	protected override void CommandHandle(){
 		string command = null;
 		JSONNode jsonCommand;
+		JSONArray jsonRotation;
 
 		if (Input.GetKey (KeyCode.Space)) {
-			server.close();		
+			server.Close();
 		}
 
-
+		command = null;
+		Debug.Log(server.commandStack.Count);
 		while (server.getCommand (ref command)) {
-			//Debug.Log (server.commandStack.Count);
 			jsonCommand = JSON.Parse(command);
 			try{
-				this.transform.Rotate(jsonCommand["roll"].AsFloat, jsonCommand["azimuth"].AsFloat, jsonCommand["pitch"].AsFloat);
+				//this.transform.rotation.;
+				jsonRotation = jsonCommand["values"].AsArray;
+				//Debug.Log("[" + jsonRotation[0].AsFloat + ", " + jsonRotation[1].AsFloat + ", " + jsonRotation[2].AsFloat + ", " + jsonRotation[3].AsFloat + ", " + "]");
+				this.transform.rotation = new Quaternion(jsonRotation[0].AsFloat, jsonRotation[1].AsFloat,  jsonRotation[2].AsFloat, jsonRotation[3].AsFloat); 
 			} catch (Exception e){
 				Debug.Log(e);
 			}
 		}
-	}
-
-	void OnDestroy(){
-		server.close ();
-		
 	}
 }

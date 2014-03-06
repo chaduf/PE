@@ -13,6 +13,7 @@ import org.json.JSONObject;
 public abstract class Command {
 	private long mId;
 	protected static long nbInstances;
+	protected int mType = 0;
 	
 	/**
 	 * Constructor
@@ -30,6 +31,7 @@ public abstract class Command {
 		JSONObject jsonObject = null;
 		try {
 			jsonObject = new JSONObject();
+			jsonObject.put("type", mType);
 			jsonObject.put("id", mId);
 		} catch (JSONException e) {
 			e.printStackTrace();

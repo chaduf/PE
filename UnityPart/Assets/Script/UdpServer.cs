@@ -92,7 +92,7 @@ public class UdpServer
 	}
 
 
-	public void close()
+	public void Close()
 	{
 		//NotificationMessage ("Closing server");
 		isListening = false;
