@@ -1,4 +1,4 @@
-package duduf.udpclient;
+package duduf;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

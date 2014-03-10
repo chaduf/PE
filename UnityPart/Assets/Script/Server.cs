@@ -6,31 +6,6 @@ using System;
 using SimpleJSON;
 
 public class Server : CommandHandler {
-//	public int port;
-//	protected UdpServer server;
-
-//	Thread serverThread;
-
-	// Use this for initialization
-//	void Start () {
-//		server = new UdpServer (port);
-//		server.Setup ();
-
-//		serverThread = new Thread (new ThreadStart(connect));
-//		serverThread.Start ();
-//	}
-
-//	private void connect() {
-//		server.ClientConnect();
-//	}
-
-	// Update is called once per frame
-//	void Update () {
-//	}
-
-//	void OnDestroy(){
-//		server.Close ();
-//	}
 
 	protected override void CommandHandle(){
 		string command = null;
@@ -42,14 +17,13 @@ public class Server : CommandHandler {
 		}
 
 		command = null;
-		Debug.Log(server.commandStack.Count);
 		while (server.getCommand (ref command)) {
 			jsonCommand = JSON.Parse(command);
 			try{
-				//this.transform.rotation.;
-				jsonRotation = jsonCommand["values"].AsArray;
-				//Debug.Log("[" + jsonRotation[0].AsFloat + ", " + jsonRotation[1].AsFloat + ", " + jsonRotation[2].AsFloat + ", " + jsonRotation[3].AsFloat + ", " + "]");
-				this.transform.rotation = new Quaternion(jsonRotation[0].AsFloat, jsonRotation[1].AsFloat,  jsonRotation[2].AsFloat, jsonRotation[3].AsFloat); 
+				if (jsonCommand["type"].AsInt == TYPE_ORIENTATION){
+					jsonRotation = jsonCommand["values"].AsArray;
+					this.transform.rotation = new Quaternion(jsonRotation[1].AsFloat, -jsonRotation[3].AsFloat,  jsonRotation[2].AsFloat, jsonRotation[0].AsFloat);
+				}
 			} catch (Exception e){
 				Debug.Log(e);
 			}

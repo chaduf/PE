@@ -1,8 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Threading;
 
+
 public class CommandHandler : MonoBehaviour {
+	protected const int TYPE_ORIENTATION = 1;
+
 	public int port;
 
 	protected UdpServer server;

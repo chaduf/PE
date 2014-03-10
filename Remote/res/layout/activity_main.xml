@@ -9,16 +9,24 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <TextView
-        android:id = "@+id/hello"
-        android:layout_width="wrap_content"
+    <EditText 
+        android:id="@+id/ipTextField"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:inputType="phone"
+        android:hint="@string/IPAddressEnter" />
+    <EditText 
+        android:id="@+id/portTextField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/portEnter" />
     
-    <TextView
-        android:id = "@+id/hello2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
+    <Button
+        android:id="@+id/goButton"
+        android:text="@string/go"
+        android:onClick="onGoButtonClick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
 </LinearLayout>

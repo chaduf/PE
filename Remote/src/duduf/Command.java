@@ -1,7 +1,7 @@
 /**
  * 
  */
-package duduf.udpclient;
+package duduf;
 
 import org.json.JSONException;
 import org.json.JSONObject;
