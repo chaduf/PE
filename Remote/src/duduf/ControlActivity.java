@@ -14,6 +14,7 @@ public class ControlActivity extends Activity /*implements SensorEventListener*/
 	
 	private final long SEND_RATE = 100;
 	private UdpClient mClient;
+	private int i=0;
 	
 //	private Quaternion mStartingOrientationInverse;
 //	private Quaternion mOrientation;
@@ -37,8 +38,8 @@ public class ControlActivity extends Activity /*implements SensorEventListener*/
 			int port = this.getIntent().getIntExtra(MainActivity.PORT, 11000);
 			Quaternion basisRef = this.getIntent().getParcelableExtra(MainActivity.BASIS_REF);
 			mClient = new UdpClient(ipAddress, port);
-			mOrientationListener = new OrientationListener(this, SensorManager.SENSOR_DELAY_GAME, basisRef);
-			//mOrientationListener = new OrientationListener(this, SensorManager.SENSOR_DELAY_GAME);
+			//mOrientationListener = new OrientationListener(this, SensorManager.SENSOR_DELAY_GAME, basisRef);
+			mOrientationListener = new OrientationListener(this, SensorManager.SENSOR_DELAY_GAME);
 			mClient.start(); 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,7 +61,10 @@ public class ControlActivity extends Activity /*implements SensorEventListener*/
 				///*
 				//Used to text measurements
 				TextView tv = (TextView) findViewById(R.id.hello);
-				tv.setText(jsonText);
+				tv.setText(mOrientationListener.getInitOrientation().getW() + "\n" +
+						mOrientationListener.getInitOrientation().getX() + "\n" +
+						mOrientationListener.getInitOrientation().getY() + "\n" +
+						mOrientationListener.getInitOrientation().getZ());
 				//tv.setText(mStartingOrientationInverse.getW() + "\n" + mStartingOrientationInverse.getX() +"\n" + mStartingOrientationInverse.getY() + "\n" + mStartingOrientationInverse.getZ());
 				//*/
 				

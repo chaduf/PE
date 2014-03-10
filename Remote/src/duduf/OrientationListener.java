@@ -104,7 +104,7 @@ public class OrientationListener implements SensorEventListener {
 			SensorManager.getRotationMatrix(rotationMatrix, inclinaison, mGravity, mMagneticField);
 			
 			// converting rotation matrix to a quaternion and setting the orientation
-			mOrientation = (mInitOrientation.getInverse()).multiply(new Quaternion(rotationMatrix));
+			mOrientation = (mInitOrientation).multiply(new Quaternion(rotationMatrix)).multiply(mInitOrientation.getInverse());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -57,7 +57,7 @@ public class MainActivity extends Activity {
 		for (int i=0; i<nbMeasures; i++){
 			sumQ = sumQ.add(mOrientationListener.getOrientation());
 		}
-		basis = new Quaternion(sumQ.getW()/nbMeasures, sumQ.getX()/nbMeasures, sumQ.getX()/nbMeasures, sumQ.getX()/nbMeasures);
+		basis = new Quaternion(sumQ.getW()/nbMeasures, sumQ.getX()/nbMeasures, sumQ.getY()/nbMeasures, sumQ.getZ()/nbMeasures);
 
 		// gets the IP address
 		//ipAddress =  ((EditText) findViewById(R.id.ipTextField)).getText().toString();

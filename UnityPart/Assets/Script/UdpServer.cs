@@ -12,7 +12,7 @@ public class UdpServer
 	private Socket serverSocket = null;
 	private int port;
 	private bool isListening;
-
+	
 	//public List<Client> Clients;
 	public List<string> commandStack;
 
@@ -28,12 +28,7 @@ public class UdpServer
 		serverSocket = new Socket(AddressFamily.InterNetwork, 
 		                          SocketType.Dgram, ProtocolType.Udp);
 		commandStack = new List<string> ();
-		//Clients = new List<Client> ();
-		//NotificationMessage ("Starting server");
-
 		serverSocket.Bind(endPoint);
-		//serverSocket.Listen (5);
-		//serverSocket.BeginAccept (new AsyncCallback(AcceptCallback), null);
 	}
 /*
 	private void AcceptCallback(IAsyncResult AR) {
@@ -73,7 +68,9 @@ public class UdpServer
 
 		data = new byte[1024];
 		received = serverSocket.ReceiveFrom(data, ref tmpRemote);
-		
+
+		//data = serverSocket.Receive(;
+
 		isListening = true;
 		while (true)
 		{
@@ -83,7 +80,7 @@ public class UdpServer
 			//NotificationMessage("Waiting for request");
 			data = new byte[1024];
 			received = serverSocket.ReceiveFrom(data, ref tmpRemote);
-
+			//data = serverSocket.Receive (ref clientEndPoint);
 
 			if (received > 0){
 				commandStack.Add(System.Text.Encoding.ASCII.GetString(data));
@@ -108,9 +105,9 @@ public class UdpServer
 			command = commandStack[0];
 			commandStack.RemoveAt(0);
 
-			if (commandStack.Count > 0){
-				return true;
-			}
+			//if (commandStack.Count > 0){
+			return true;
+			//}
 		}
 		return false;
 	}

@@ -22,7 +22,7 @@ public class Server : CommandHandler {
 			try{
 				if (jsonCommand["type"].AsInt == TYPE_ORIENTATION){
 					jsonRotation = jsonCommand["values"].AsArray;
-					this.transform.rotation = new Quaternion(jsonRotation[1].AsFloat, -jsonRotation[3].AsFloat,  jsonRotation[2].AsFloat, jsonRotation[0].AsFloat);
+					this.transform.rotation = new Quaternion(jsonRotation[1].AsFloat, jsonRotation[3].AsFloat,  jsonRotation[2].AsFloat, jsonRotation[0].AsFloat);
 				}
 			} catch (Exception e){
 				Debug.Log(e);
