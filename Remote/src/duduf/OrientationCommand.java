@@ -38,7 +38,7 @@ public class OrientationCommand extends Command {
 		
 		try {
 			if (jsonObject != null){
-				jsonObject.put("type", mType);// Orientation is type One;
+				jsonObject.put("type", mType);
 				
 				jsonValues.put(0, mOrientation.getW());
 				jsonValues.put(1, mOrientation.getX());

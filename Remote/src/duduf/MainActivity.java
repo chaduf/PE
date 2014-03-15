@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.hardware.SensorManager;
 import android.view.Menu;
 import android.view.View;
-import android.widget.EditText;
 
 public class MainActivity extends Activity {
 	
@@ -67,7 +66,7 @@ public class MainActivity extends Activity {
 		//String portStr = ((EditText) findViewById(R.id.portTextField)).getText().toString();
 		//if (!portStr.equals(""))
 		//	port = Integer.parseInt(portStr);
-		port = 11000;
+		port = 11500;
 		
 		intent.putExtra(IP_ADDRESS, ipAddress);
 		intent.putExtra(PORT, port);

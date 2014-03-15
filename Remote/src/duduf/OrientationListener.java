@@ -71,7 +71,7 @@ public class OrientationListener implements SensorEventListener {
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		float[] rotationMatrix = new float[9];
-		float[] inclinaison = new float[9];
+		float[] transformedRotationMatrix = new float[9];
 		float alpha = 0.8f;
 
 		try {
@@ -101,10 +101,11 @@ public class OrientationListener implements SensorEventListener {
 			}
 			
 			// Computing rotation matrix of the phone
-			SensorManager.getRotationMatrix(rotationMatrix, inclinaison, mGravity, mMagneticField);
+			SensorManager.getRotationMatrix(rotationMatrix, null, mGravity, mMagneticField);
 			
 			// converting rotation matrix to a quaternion and setting the orientation
-			mOrientation = (mInitOrientation).multiply(new Quaternion(rotationMatrix)).multiply(mInitOrientation.getInverse());
+			SensorManager.remapCoordinateSystem(rotationMatrix,  SensorManager.AXIS_Y, SensorManager.AXIS_MINUS_X,  transformedRotationMatrix);
+			mOrientation = (mInitOrientation.getInverse()).multiply(new Quaternion(rotationMatrix));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

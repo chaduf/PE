@@ -5,6 +5,7 @@ using System.Threading;
 
 public class CommandHandler : MonoBehaviour {
 	protected const int TYPE_ORIENTATION = 1;
+	protected const int TYPE_TOUCHSCREEN = 0;
 
 	public int port;
 

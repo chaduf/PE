@@ -58,6 +58,7 @@ public class UdpServer
 		Clients.Clear ();
 	}
 */
+
 	public void ClientConnect()
 	{		
 		byte[] data;
@@ -104,10 +105,7 @@ public class UdpServer
 		if (commandStack.Count > 0){
 			command = commandStack[0];
 			commandStack.RemoveAt(0);
-
-			//if (commandStack.Count > 0){
 			return true;
-			//}
 		}
 		return false;
 	}
