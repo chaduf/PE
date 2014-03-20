@@ -123,6 +123,4 @@ public class OrientationListener implements SensorEventListener {
 	public void setInitOrientation(Quaternion initOrientation) {
 		this.mInitOrientation = initOrientation;
 	}
-
-	
 }

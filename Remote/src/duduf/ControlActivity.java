@@ -3,19 +3,29 @@ package duduf;
 import duduf.udpclient.R;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.SurfaceView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.SlidingDrawer.OnDrawerCloseListener;
 import android.app.Activity;
+import android.graphics.Canvas;
 import android.hardware.SensorManager;
 
 public class ControlActivity extends Activity {
 	
 	private final long SEND_RATE = 50;
+	private final long DISPLAY_RATE = 10;
 	private UdpClient mClient;
 	
 	private boolean isRunning = false;
+	private boolean isScreenActive = false;
 	
 	private OrientationListener mOrientationListener;
 	private TouchHandler mTouchHandler;
+	private RelativeLayout mMainView;
+	private TouchCanvas mCanvas;
+	//private View mScreen;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,27 +40,29 @@ public class ControlActivity extends Activity {
 			mClient = new UdpClient(ipAddress, port);
 			mOrientationListener = new OrientationListener(this, SensorManager.SENSOR_DELAY_GAME, basisRef);
 			mTouchHandler = new TouchHandler();
-			View mainView = (View) findViewById(R.id.touchView);
-			mainView.setOnTouchListener(mTouchHandler);
-			mClient.start(); 
-		
+			mMainView = (RelativeLayout) findViewById(R.id.touchView);
+			mCanvas = (TouchCanvas) findViewById(R.id.touchCanvas);
+			mMainView.setOnTouchListener(mTouchHandler);
+			mCanvas.setState(mTouchHandler.getState());
+			mClient.start();
+			startTasks();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
-		startTasks();
+		}	
 	}
 	
 	@Override
 	protected void onStart() {
 		super.onStart();
 		mOrientationListener.startListening();
+		isScreenActive = true;
 	}
 	
 	@Override
 	protected void onStop() {
 		super.onStop();
 		mOrientationListener.stopListening();
+		isScreenActive = false;
 	}
 
 	@Override
@@ -84,9 +96,20 @@ public class ControlActivity extends Activity {
 			}
 		};
 		
+		Runnable refreshCanvas = new Runnable () {
+			@Override
+			public void run() {
+				if (isRunning){
+					handler.postDelayed(this, DISPLAY_RATE);
+				}
+				mCanvas.postInvalidate();
+			}
+		};
+		
 		isRunning = true;
 		handler.postDelayed(sendOrientationTask, 0);
 		handler.postDelayed(sendTouchTask, 10);
+		handler.postDelayed(refreshCanvas, 20);
 	}
 	
 	private void sendOrientation (){

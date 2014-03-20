@@ -7,9 +7,10 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:background="#000000"
     tools:context=".MainActivity" >
 
-    <EditText 
+    <!--EditText 
         android:id="@+id/ipTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,13 +21,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:hint="@string/portEnter" />
+        android:hint="@string/portEnter" /-->
+        
+	<ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:scaleType="fitXY"
+        android:layout_gravity="center_horizontal"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
+        android:layout_weight="1.5"
+        android:src="@drawable/sparkle_logo_blanc" />
     
-    <Button
+    <ImageView
         android:id="@+id/goButton"
-        android:text="@string/go"
+        android:clickable="true"
         android:onClick="onGoButtonClick"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:contentDescription="@string/app_name"
+        android:layout_gravity="center_horizontal"
+        android:padding="30dp"
+        android:layout_weight="4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/go_button"/>
     
 </LinearLayout>

@@ -30,16 +30,16 @@ public class TouchHandler implements OnTouchListener {
 		
 		switch (action) {
 		case MotionEvent.ACTION_DOWN:
-			mState.updatePointer(pointerId, event.getX(pointerIndex), event.getY(pointerIndex));
+			mState.updatePointer(pointerId, event.getX(pointerIndex)/v.getWidth(), event.getY(pointerIndex)/v.getHeight());
 			return true;
 
 		case MotionEvent.ACTION_POINTER_DOWN:
-			mState.updatePointer(pointerId, event.getX(pointerIndex), event.getY(pointerIndex));
+			mState.updatePointer(pointerId, event.getX(pointerIndex)/v.getWidth(), event.getY(pointerIndex)/v.getHeight());
 			return true;
 			
 		case MotionEvent.ACTION_MOVE:
 			for (int i=0; i<event.getPointerCount(); i++)
-			mState.updatePointer(event.getPointerId(i), event.getX(i), event.getY(i));
+			mState.updatePointer(event.getPointerId(i), event.getX(i)/v.getWidth(), event.getY(i)/v.getHeight());
 			return true;
 			
 		case MotionEvent.ACTION_POINTER_UP:
@@ -48,7 +48,7 @@ public class TouchHandler implements OnTouchListener {
 			
 		case MotionEvent.ACTION_UP:
 			mState.removePointer(pointerId);
-			return false;
+			return true;
 			
 		default:
 			return false;

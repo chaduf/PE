@@ -36,26 +36,30 @@ public class TouchCommand extends Command {
 		JSONArray jsonPointerValues;
 		List<Pointer> pointerList = mScreenState.getPointers();
 		try{
-			for (Pointer p : pointerList){
-				 jsonPointer = new JSONObject();
-				 jsonPointerValues = new JSONArray();
-				 
-				 jsonPointer.put("id", p.getId());
-				 
-				 jsonPointerValues.put(0, p.getX());
-				 jsonPointerValues.put(1, p.getY());
-				 jsonPointer.put("values", jsonPointerValues);
-				 
-				 jsonPointerList.put(jsonPointer);
+			if (jsonCommand != null){
+				jsonCommand.put("type", mType);
+				
+				for (Pointer p : pointerList){
+					 jsonPointer = new JSONObject();
+					 jsonPointerValues = new JSONArray();
+					 
+					 jsonPointer.put("id", p.getId());
+					 
+					 jsonPointerValues.put(0, p.getX());
+					 jsonPointerValues.put(1, p.getY());
+					 jsonPointer.put("values", jsonPointerValues);
+					 
+					 jsonPointerList.put(jsonPointer);
+				}
+				
+				jsonCommand.put("pointers", jsonPointerList);
+				jsonCommand.put("size", pointerList.size());
 			}
-			
-			jsonCommand.put("pointers", jsonPointerList);
-			jsonCommand.put("size", pointerList.size());
-			return jsonCommand;
 			
 		} catch (JSONException e){
 			e.printStackTrace();
 			return super.getJson();
 		}
+		return jsonCommand;
 	}
 }

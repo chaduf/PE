@@ -30,34 +30,6 @@ public class UdpServer
 		commandStack = new List<string> ();
 		serverSocket.Bind(endPoint);
 	}
-/*
-	private void AcceptCallback(IAsyncResult AR) {
-		Socket clientSocket = serverSocket.EndAccept (AR);
-		Client client = new Client (clientSocket);
-		Clients.Add (client);
-		clientSocket.BeginReceive (buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback (ReceiveCallback), client);
-		serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), null);
-	}
-
-	private void ReceiveCallback (IAsyncResult AR){
-		Client client = (Client)AR.AsyncState;
-		int received = client.Socket.EndReceive(AR);
-		byte[] dataBuffer = new byte[received];
-
-		string data = Encoding.ASCII.GetString (dataBuffer);
-		client.CommandStack.Add (data);
-	}
-
-
-	public void close(){
-		isListening = false;
-		foreach (Client client in Clients){
-			client.CommandStack.Clear();
-			client.Socket.Close();
-		}
-		Clients.Clear ();
-	}
-*/
 
 	public void ClientConnect()
 	{		
